@@ -1,10 +1,10 @@
 import { TextField, Slider, RadioGroup, Radio, FormControlLabel, Typography, Button, Select, MenuItem, Alert } from "@mui/material"
-import {useState} from 'react'
+import { useState } from 'react'
 import React from 'react';
 
 const gradesPossible = ["A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F", "Audit/No Grade", "Drop/Withdrawl", "Incomplete", "Not Sure Yet", "Rather Not Say"]
 
-function RatingsForm({rateModal, setRateModal, professorName, subject, setPostedReview, allClassesInSubject}){
+function RatingsForm({ rateModal, setRateModal, professorName, subject, setPostedReview, allClassesInSubject }) {
     const [courseCode, setCourseCode] = useState("")
     const [rating, setRating] = useState(3)
     const [difficulty, setDifficulty] = useState(3)
@@ -19,7 +19,7 @@ function RatingsForm({rateModal, setRateModal, professorName, subject, setPosted
 
     const [postingErrorMessage, setPostingErrorMessage] = useState("")
 
-    function courseExists(allClasses){
+    function courseExists(allClasses) {
         let regExArray = []
         allClasses.map((classItem => {
             regExArray.push(classItem.split(/\s(.+)/)[0])
@@ -27,12 +27,12 @@ function RatingsForm({rateModal, setRateModal, professorName, subject, setPosted
         return regExArray.includes(courseCode.split(/\s(.+)/)[1])
     }
 
-    function handleCancel(){
+    function handleCancel() {
         setRateModal(!rateModal)
     }
 
-    function handleSubmit(){
-        if(courseCode.length > 0 && reviewText.length > 0 && courseExists(allClassesInSubject)){
+    function handleSubmit() {
+        if (courseCode.length > 0 && reviewText.length > 0 && courseExists(allClassesInSubject)) {
             setRateModal(!rateModal)
 
             //Post Request Here
@@ -63,13 +63,13 @@ function RatingsForm({rateModal, setRateModal, professorName, subject, setPosted
                     setPostedReview(false)
                 }, 5000)
             })
-        }else if(!courseExists(allClassesInSubject) && courseCode.length > 0 && reviewText.length){
+        } else if (!courseExists(allClassesInSubject) && courseCode.length > 0 && reviewText.length) {
             setPostingErrorMessage("Course Code Does Not Exist")
             setDoesCourseExist(false)
             setTimeout(() => {
                 setDoesCourseExist(null)
             }, 5000)
-        }else{
+        } else {
             setPostingErrorMessage("All Fields Are Required")
             setAllRequiredFields(false)
             setTimeout(() => {
@@ -78,7 +78,7 @@ function RatingsForm({rateModal, setRateModal, professorName, subject, setPosted
         }
     }
 
-    return(
+    return (
         <div>
             <div>
                 {
@@ -89,34 +89,33 @@ function RatingsForm({rateModal, setRateModal, professorName, subject, setPosted
                 }
             </div>
 
-            <div style={{display:"flex", justifyContent:"space-between", margin:"50px"}}>
+            <div style={{ display: "flex", justifyContent: "space-between", margin: "50px" }}>
                 <div>
-                    <Typography style={{fontWeight:"bold", marginBottom: "4px"}}>Course Code</Typography>
-                    <TextField style={courseCodeStyle} label="Ex. COMP 110" variant="outlined" onChange={(e) => setCourseCode(e.target.value)}/>
+                    <Typography style={{ fontWeight: "bold", marginBottom: "4px" }}>Course Code</Typography>
+                    <TextField style={courseCodeStyle} label="Ex. COMP 110" variant="outlined" onChange={(e) => setCourseCode(e.target.value)} />
                 </div>
-                
+
                 <div>
                     <Typography style={questionStyle}>Rate your professor</Typography>
-                    <Slider style={sliderStyle} defaultValue={3} step={1} min={1} max={5} valueLabelDisplay="auto" onChange={(e) => setRating(e.target.value)}/>
+                    <Slider style={sliderStyle} defaultValue={3} step={1} min={1} max={5} valueLabelDisplay="auto" onChange={(e) => setRating(e.target.value)} />
                 </div>
 
                 <div>
                     <Typography style={questionStyle}>How difficult was this professor?</Typography>
-                    <Slider style={sliderStyle} defaultValue={3} step={1} min={1} max={5} valueLabelDisplay="auto" onChange={(e) => setDifficulty(e.target.value)}/>
+                    <Slider style={sliderStyle} defaultValue={3} step={1} min={1} max={5} valueLabelDisplay="auto" onChange={(e) => setDifficulty(e.target.value)} />
                 </div>
             </div>
 
 
-            <div style={{display:"flex", justifyContent:"space-between", margin:"50px"}}>
+            <div style={{ display: "flex", justifyContent: "space-between", margin: "50px" }}>
                 <div>
                     <div>
-                        <Typography style={{fontWeight:"bold", marginBottom: "4px"}}>Select Grade</Typography>
+                        <Typography style={{ fontWeight: "bold", marginBottom: "4px" }}>Select Grade</Typography>
                         <Select
                             value={grade}
                             label="Grade"
                             onChange={(e) => setGrade(e.target.value)}
-                            style={{width:"100px"}}
-                        >
+                            style={{ width: "100px" }}>
                             {
                                 gradesPossible.map((grade) => (
                                     <MenuItem key={grade} value={grade}>{grade}</MenuItem>
@@ -129,36 +128,36 @@ function RatingsForm({rateModal, setRateModal, professorName, subject, setPosted
                 <div>
                     <Typography style={questionStyle}>Would you take this professor again?</Typography>
                     <RadioGroup style={radioStyle} row onChange={(e) => setRetakeProfessor(e.target.value)}>
-                        <FormControlLabel value="Yes" control={<Radio style={{color:"red"}}/>} label="Yes" />
-                        <FormControlLabel value="No" control={<Radio style={{color:"red"}}/>} label="No" />
+                        <FormControlLabel value="Yes" control={<Radio style={{ color: "red" }} />} label="Yes" />
+                        <FormControlLabel value="No" control={<Radio style={{ color: "red" }} />} label="No" />
                     </RadioGroup>
                 </div>
 
                 <div>
                     <Typography style={questionStyle}>Did this professor use textbooks?</Typography>
                     <RadioGroup style={radioStyle} row onChange={(e) => setRequireTextbooks(e.target.value)}>
-                        <FormControlLabel value="Yes" control={<Radio style={{color:"red"}}/>} label="Yes" />
-                        <FormControlLabel value="No" control={<Radio style={{color:"red"}}/>} label="No" />
+                        <FormControlLabel value="Yes" control={<Radio style={{ color: "red" }} />} label="Yes" />
+                        <FormControlLabel value="No" control={<Radio style={{ color: "red" }} />} label="No" />
                     </RadioGroup>
                 </div>
 
                 <div>
                     <Typography style={questionStyle}>Was attendance mandatory?</Typography>
                     <RadioGroup style={radioStyle} row onChange={(e) => setMandatory(e.target.value)}>
-                        <FormControlLabel value="Yes" control={<Radio style={{color:"red"}}/>} label="Yes" />
-                        <FormControlLabel value="No" control={<Radio style={{color:"red"}}/>} label="No" />
+                        <FormControlLabel value="Yes" control={<Radio style={{ color: "red" }} />} label="Yes" />
+                        <FormControlLabel value="No" control={<Radio style={{ color: "red" }} />} label="No" />
                     </RadioGroup>
                 </div>
             </div>
-            
-            
+
+
 
             <div>
-                <Typography style={{fontWeight:"bold"}}>Write a Review</Typography>
+                <Typography style={{ fontWeight: "bold" }}>Write a Review</Typography>
                 <textarea style={textAreaStyle} onChange={(e) => setReviewText(e.target.value)}></textarea>
             </div>
 
-            <div style={{display:"flex", justifyContent:'center'}}>
+            <div style={{ display: "flex", justifyContent: 'center' }}>
                 <Button onClick={handleCancel} style={buttonStyle}>Cancel</Button>
                 <Button onClick={handleSubmit} style={buttonStyle}>Post</Button>
             </div>
@@ -198,16 +197,16 @@ const buttonStyle = {
 }
 
 const questionStyle = {
-    textAlign:"center",
+    textAlign: "center",
     fontWeight: "bold"
 }
 
 const radioStyle = {
-    display:"flex", 
-    justifyContent:"center",
+    display: "flex",
+    justifyContent: "center",
 }
 
 const sliderStyle = {
-    width:"300px", 
+    width: "300px",
     color: 'red'
 }

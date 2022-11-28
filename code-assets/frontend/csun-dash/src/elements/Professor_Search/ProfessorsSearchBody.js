@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import DataTableRow from './Data_Table_Components/DataTableRow';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,7 +11,7 @@ import { padding } from '@mui/system';
 import React, { Component }  from 'react';
 
 
-function ProfessorsSearchPage({allProfessors}){
+function ProfessorsSearchPage({ allProfessors }) {
     const [professors, setProfessors] = useState([])
 
     useEffect(() => {
@@ -20,18 +20,18 @@ function ProfessorsSearchPage({allProfessors}){
 
     }, [allProfessors])
 
-    return(
-        <div style={{margin:"100px 100px 0px 100px", paddingBottom: "50px"}}>
+    return (
+        <div style={{ margin: "100px 100px 0px 100px", paddingBottom: "50px" }}>
             <TableContainer component={Paper}>
                 <Table>
-                    <TableHead style={{backgroundColor: "#E31C25"}}>
-                    <TableRow>
-                        <TableCell style={columnStyles} align="center"></TableCell>
-                        <TableCell style={columnStyles} align="center">Name</TableCell>
-                        <TableCell style={columnStyles} align="center">Location</TableCell>
-                        <TableCell style={columnStyles} align="center">Email</TableCell>
-                        <TableCell style={columnStyles} align="center">Phone Number</TableCell>
-                    </TableRow>
+                    <TableHead style={{ backgroundColor: "#E31C25" }}>
+                        <TableRow>
+                            <TableCell style={columnStyles} align="center"></TableCell>
+                            <TableCell style={columnStyles} align="center">Name</TableCell>
+                            <TableCell style={columnStyles} align="center">Location</TableCell>
+                            <TableCell style={columnStyles} align="center">Email</TableCell>
+                            <TableCell style={columnStyles} align="center">Phone Number</TableCell>
+                        </TableRow>
                     </TableHead>
                     <TableBody>
                         {professors.map((professor, i) => (

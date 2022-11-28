@@ -1,9 +1,9 @@
 import Button from '@mui/material/Button';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import React from 'react';
 
-function LandingPageSeciong(){
-    return(
+function LandingPageSeciong() {
+    return (
         <div style={landingSectionContainer}>
             <div>
                 <h1 style={headerText}>The CSUN course planner <br></br> you've been looking for</h1>
@@ -31,7 +31,7 @@ const headerText = {
     textAlign: 'left',
     fontSize: '42px',
     fontFamily: "Montserrat, Helvetica, Arial, sans-serif",
-    lineHeight: "1.3", 
+    lineHeight: "1.3",
     textShadow: "0px 2px 1px #000000",
     letterSpacing: "-1.3px",
     marginBottom: "35px",
@@ -42,7 +42,7 @@ const headerparagraph = {
     textAlign: 'left',
     fontSize: '20px',
     fontFamily: "Montserrat, Helvetica, Arial, sans-serif",
-    lineHeight: "1.5", 
+    lineHeight: "1.5",
     marginBottom: "40px",
     color: 'white'
 }

@@ -1,5 +1,5 @@
 import { class_codes } from '../../classCodes';
-import {useState} from 'react'
+import { useState } from 'react'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -8,27 +8,26 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import React from 'react';
 
-function SubjectSearchDropdown({handleSubjectChange, subject}){
-    return(
+function SubjectSearchDropdown({ handleSubjectChange, subject }) {
+    return (
         <div style={searchContainer}>
             <FormControl error style={dropdownStyle}>
-                    <InputLabel style={{color:"white"}}>Select Subject</InputLabel>
-                    <Select
-                    style={{color:"white"}}
+                <InputLabel style={{ color: "white" }}>Select Subject</InputLabel>
+                <Select
+                    style={{ color: "white" }}
                     value={subject}
                     label="Subject"
                     onChange={handleSubjectChange}
                     MenuProps={{
                         style: {
-                        maxHeight: 250,
-                            },
-                        }}
-                    >
-                        {class_codes.map(subjectItem =>(
-                            <MenuItem key={subjectItem} value={subjectItem}>{subjectItem}</MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
+                            maxHeight: 250,
+                        },
+                    }}>
+                    {class_codes.map(subjectItem => (
+                        <MenuItem key={subjectItem} value={subjectItem}>{subjectItem}</MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
         </div>
     )
 }
