@@ -7,14 +7,15 @@ import { Alert } from "@mui/material"
 import React from 'react';
 
 function RatingsPage() {
-    const { subject, first_name, last_name } = useParams()
+    const { subject, email } = useParams()
     const [allClassesInSubject, setAllClassesInSubject] = useState([])
     const [ratings, setRatings] = useState([])
     const [postedReview, setPostedReview] = useState(false)
+    const [professor, setProfessor] = useState({})
 
 
     function fetchRatingsAndClasses() {
-        fetch(`http://api.kyeou.xyz/${subject}/rating/${first_name}/${last_name}`)
+        fetch(`http://130.166.160.102/${email}/ratings`)
             .then(response => response.json())
             .then(ratings => {
                 let ratingsArray = []
@@ -26,7 +27,7 @@ function RatingsPage() {
                 setRatings(ratingsArray)
             })
 
-        fetch(`http://api.kyeou.xyz/${subject}/classes`)
+        fetch(`http://130.166.160.102/${subject}/classes`)
             .then(response => response.json())
             .then(classes => {
                 let classesArray = []
@@ -39,9 +40,22 @@ function RatingsPage() {
             })
     }
 
+    function fetchProfessor(){
+        fetch(`http://130.166.160.102/${subject}/professors`)
+            .then(response => response.json())
+            .then(professors => {
+                professors.map((professor) => {
+                    if(professor.email == email){
+                        setProfessor(professor)
+                    }
+                })
+            })
+    }
+
 
     useEffect(() => {
         fetchRatingsAndClasses()
+        fetchProfessor()
     }, [])
 
     useEffect(() => {
@@ -54,7 +68,7 @@ function RatingsPage() {
         <div style={{ minHeight: "100vh", backgroundColor: "#1C1C1C" }}>
             <Header></Header>
             {
-                postedReview == true ?
+                postedReview === true ?
                     <Alert style={{ float: "right" }} variant="filled" severity="success">
                         Successfully Posted Review!
                     </Alert> : <div></div>
@@ -63,7 +77,7 @@ function RatingsPage() {
             <div>
                 <ProfessorRatingsHeader
                     ratings={ratings}
-                    professorName={`${first_name} ${last_name}`}
+                    professorName={`${professor.first_name} ${professor.last_name}`}
                     postedReview={postedReview}
                     setPostedReview={setPostedReview}
                     subject={subject}
@@ -71,8 +85,9 @@ function RatingsPage() {
                 </ProfessorRatingsHeader>
                 <StudentRatings
                     subject={subject}
-                    first_name={first_name}
-                    last_name={last_name}
+                    email={professor.email}
+                    first_name={professor.first_name}
+                    last_name={professor.last_name}
                     postedReview={postedReview}>
                 </StudentRatings>
             </div>

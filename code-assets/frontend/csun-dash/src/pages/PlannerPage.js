@@ -11,7 +11,7 @@ function PlannerPage() {
 
     function classAlreadyAdded(event) {
         for (let i = 0; i < addedClasses.length; i++) {
-            if (event.catalog_number == addedClasses[i].catalog_number) {
+            if (event.catalog_number === addedClasses[i].catalog_number) {
                 return true
             }
         }
@@ -35,7 +35,7 @@ function PlannerPage() {
     }
 
     function handleClassRemoved(event) {
-        let filteredClasses = addedClasses.filter(classItem => classItem.class_number != event.class_number)
+        let filteredClasses = addedClasses.filter(classItem => classItem.class_number !== event.class_number)
         setAddedClasses(filteredClasses)
 
         setAddedClassIcon({

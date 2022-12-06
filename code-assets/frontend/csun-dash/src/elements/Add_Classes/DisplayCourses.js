@@ -9,7 +9,7 @@ function DisplayCourses({ term, subject, addedClassHandler, addIcon }) {
 
     function fetchAllData() {
 
-        fetch(`http://api.kyeou.xyz/${subject}/classes`)
+        fetch(`http://130.166.160.102/${subject}/classes`)
             .then(response => response.json())
             .then(classesData => {
                 let allClassList = []
@@ -22,7 +22,7 @@ function DisplayCourses({ term, subject, addedClassHandler, addIcon }) {
                 setClassList(allClassList)
             })
 
-        fetch(`http://api.kyeou.xyz/${subject}/schedule`)
+        fetch(`http://130.166.160.102/${subject}/schedule`)
             .then(response => response.json())
             .then(scheduleData => {
                 let scheduleDict = {}

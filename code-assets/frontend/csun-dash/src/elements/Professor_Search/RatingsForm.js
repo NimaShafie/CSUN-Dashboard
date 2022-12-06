@@ -3,12 +3,14 @@ import { useState } from 'react'
 import React from 'react';
 
 const gradesPossible = ["A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F", "Audit/No Grade", "Drop/Withdrawl", "Incomplete", "Not Sure Yet", "Rather Not Say"]
+const classTypes = ["Online - Async", "Online - Sync", "In-Person"]
 
 function RatingsForm({ rateModal, setRateModal, professorName, subject, setPostedReview, allClassesInSubject }) {
     const [courseCode, setCourseCode] = useState("")
     const [rating, setRating] = useState(3)
     const [difficulty, setDifficulty] = useState(3)
     const [grade, setGrade] = useState("")
+    const [classType, setClassType] = useState("")
     const [retakeProfessor, setRetakeProfessor] = useState(null)
     const [requireTextbooks, setRequireTextbooks] = useState(null)
     const [mandatory, setMandatory] = useState(null)
@@ -39,6 +41,7 @@ function RatingsForm({ rateModal, setRateModal, professorName, subject, setPoste
             let body = {
                 "professor_first_name": professorName.split(/\s(.+)/)[0],
                 "professor_last_name": professorName.split(/\s(.+)/)[1],
+                "email": `${professorName.split(/\s(.+)/)[0]}.${professorName.split(/\s(.+)/)[1]}@csun.edu`,
                 "subject": subject,
                 "catalog_number": courseCode,
                 "star_rating": rating,
@@ -47,11 +50,12 @@ function RatingsForm({ rateModal, setRateModal, professorName, subject, setPoste
                 "retake_professor": retakeProfessor,
                 "require_textbooks": requireTextbooks,
                 "mandatory": mandatory,
+                "class_type": classType,
                 "review": reviewText
             }
 
             console.log(body)
-            fetch(`http://api.kyeou.xyz/${subject}/rating`, {
+            fetch(`http://130.166.160.102/${subject}/rating`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -82,7 +86,7 @@ function RatingsForm({ rateModal, setRateModal, professorName, subject, setPoste
         <div>
             <div>
                 {
-                    allRequiredFields == false || doesCourseExist == false ?
+                    allRequiredFields === false || doesCourseExist === false ?
                         <Alert style={{}} variant="filled" severity="error">
                             {postingErrorMessage}
                         </Alert> : <div></div>
@@ -109,23 +113,6 @@ function RatingsForm({ rateModal, setRateModal, professorName, subject, setPoste
 
             <div style={{ display: "flex", justifyContent: "space-between", margin: "50px" }}>
                 <div>
-                    <div>
-                        <Typography style={{ fontWeight: "bold", marginBottom: "4px" }}>Select Grade</Typography>
-                        <Select
-                            value={grade}
-                            label="Grade"
-                            onChange={(e) => setGrade(e.target.value)}
-                            style={{ width: "100px" }}>
-                            {
-                                gradesPossible.map((grade) => (
-                                    <MenuItem key={grade} value={grade}>{grade}</MenuItem>
-                                ))
-                            }
-                        </Select>
-                    </div>
-                </div>
-
-                <div>
                     <Typography style={questionStyle}>Would you take this professor again?</Typography>
                     <RadioGroup style={radioStyle} row onChange={(e) => setRetakeProfessor(e.target.value)}>
                         <FormControlLabel value="Yes" control={<Radio style={{ color: "red" }} />} label="Yes" />
@@ -148,6 +135,37 @@ function RatingsForm({ rateModal, setRateModal, professorName, subject, setPoste
                         <FormControlLabel value="No" control={<Radio style={{ color: "red" }} />} label="No" />
                     </RadioGroup>
                 </div>
+            </div>
+
+            <div style={{ display: "flex", justifyContent: "center", margin: "50px", gap:"100px" }}>
+                    <div>
+                        <Typography style={{ fontWeight: "bold", marginBottom: "4px" }}>Select Grade</Typography>
+                        <Select
+                            value={grade}
+                            label="Grade"
+                            onChange={(e) => setGrade(e.target.value)}
+                            style={{ width: "200px" }}>
+                            {
+                                gradesPossible.map((grade) => (
+                                    <MenuItem key={grade} value={grade}>{grade}</MenuItem>
+                                ))
+                            }
+                        </Select>
+                    </div>
+                    <div>
+                        <Typography style={{ fontWeight: "bold", marginBottom: "4px" }}>Class Type</Typography>
+                        <Select
+                            value={classType}
+                            label="ClassType"
+                            onChange={(e) => setClassType(e.target.value)}
+                            style={{ width: "200px" }}>
+                            {
+                                classTypes.map((classTypeItem) => (
+                                    <MenuItem key={classTypeItem} value={classTypeItem}>{classTypeItem}</MenuItem>
+                                ))
+                            }
+                        </Select>
+                    </div>
             </div>
 
 

@@ -25,13 +25,13 @@ function DisplayClasses({ classesAdded, removeClassHandler }) {
         console.log(event)
         setOpenModal(!openModal)
 
-        fetch(`http://api.kyeou.xyz/${event.subject}/catalog`)
+        fetch(`http://130.166.160.102/${event.subject}/catalog`)
             .then(response => response.json())
             .then(catalogData => {
                 let catalogInfo = {}
 
                 for (let i = 0; i < catalogData.length; i++) {
-                    if (event.catalog_number == catalogData[i].catalog_number) {
+                    if (event.catalog_number === catalogData[i].catalog_number) {
                         catalogInfo = catalogData[i]
                     }
                 }
